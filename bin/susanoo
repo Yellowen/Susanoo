@@ -1,0 +1,10 @@
+#! /usr/bin/env ruby
+
+
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH << lib
+
+require "thor"
+require 'Susanoo'
+
+Susanoo::Cli.start

@@ -1,5 +1,8 @@
 require "Susanoo/version"
+require "colorize"
 
 module Susanoo
-  # Your code goes here...
 end
+
+require "Susanoo/cli"
+require "Susanoo/project"
