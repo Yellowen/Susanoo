@@ -36,6 +36,18 @@ module Susanoo
         end
       end
 
+      def remove_default_files
+        say "Removing cordova default files . . .".colorize(:yellow)
+        inside Susanoo::Project.folder_name do
+          inside "www" do
+            remove_file "index.html"
+            remove_file "js"
+            remove_file "css"
+            remove_file "img"
+          end
+        end
+      end
+
       private
 
       def version
