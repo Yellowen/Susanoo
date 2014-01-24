@@ -7,7 +7,7 @@ module Susanoo
       @@bower_data = {
         :name => "",
         :dependencies => {
-          angular: "1.2.6",
+          angular: "1.2.9",
           "angular-touch" => "*",
           "angular-gesture" => "*",
         },
@@ -38,17 +38,32 @@ module Susanoo
         end
       end
 
+      def bower_install
+        require "json"
+        inside Susanoo::Project.folder_name do
+          inside "www" do
+            create_file "bower.json" do
+              JSON.generate(@@bower_data)
+            end
+            system "bower install"
+          end
+        end
+      end
+
       def install_templates
+        abs_path = File.expand_path("", Susanoo::Project.folder_name)
         template "www/index.html", "#{Susanoo::Project.folder_name}/www/index.html"
-        template "www/assets/javascripts/application.js", "#{Susanoo::Project.folder_name}www/assets/javascripts/application.js"
-        template "www/assets/stylesheets/application.css", "#{Susanoo::Project.folder_name}www/assets/stylesheets/application.css"
+        template "www/assets/javascripts/application.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/application.js"
+        template "www/assets/stylesheets/application.css", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/application.css"
+
         inside Susanoo::Project.folder_name do
           inside "www" do
             inside "assets" do
               inside "stylesheets" do
+
                 empty_directory "lib"
                 @@css_files.each do |x|
-                  copy_file "#{Susanoo::Project.folder_name}/www/bower_components/#{x}", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/#{x}"
+                  system "cp -v #{abs_path}/www/bower_components/#{x}.scss #{abs_path}/www/assets/stylesheets/#{x}.scss"
                 end
               end
             end
