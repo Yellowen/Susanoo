@@ -25,15 +25,17 @@ module Susanoo
 
         if yes? "Do you need Zurb Foundation? (y/n)"
           @@bower_data[:dependencies][:foundation] = "*"
-          @@css_files << "foundation/scss/foundation"
-          @@js_files << "foundation/js/foundation"
+          copy_file "lib/foundation/scss/foundation.scss", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/lib/foundation.scss"
+          directory "lib/foundation/scss/foundation", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/lib/foundation"
+
+          copy_file "lib/foundation/js/foundation.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/lib/foundation.js"
           return
         end
 
         if yes? "What aboud ionic framewor? (y/n)"
           @@bower_data[:dependencies][:ionic] = "*"
-          @@js_files << "ionic/js/ionic"
-          @@css_files << "ionic/scss/ionic"
+          copy_file "lib/ionic/js/ionic.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/lib/ionic.js"
+          copy_file "lib/ionic/scss/ionic.scss", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/lib/ionic.scss"
 
         end
       end
@@ -45,7 +47,6 @@ module Susanoo
             create_file "bower.json" do
               JSON.generate(@@bower_data)
             end
-            system "bower install"
           end
         end
       end
@@ -55,22 +56,13 @@ module Susanoo
         template "www/index.html", "#{Susanoo::Project.folder_name}/www/index.html"
         template "www/assets/javascripts/application.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/application.js"
         template "www/assets/stylesheets/application.css", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/application.css"
-
-        inside Susanoo::Project.folder_name do
-          inside "www" do
-            inside "assets" do
-              inside "stylesheets" do
-
-                empty_directory "lib"
-                @@css_files.each do |x|
-                  system "cp -v #{abs_path}/www/bower_components/#{x}.scss #{abs_path}/www/assets/stylesheets/#{x}.scss"
-                end
-              end
-            end
-          end
-        end
       end
 
+      def susanoo_files
+        template "Gemfile", "#{Susanoo::Project.folder_name}/Gemfile"
+        template "Rakefile", "#{Susanoo::Project.folder_name}/Rakefile"
+        template "config.ru", "#{Susanoo::Project.folder_name}/config.ru"
+      end
 
       private
 
