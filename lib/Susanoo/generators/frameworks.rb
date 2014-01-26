@@ -52,9 +52,9 @@ module Susanoo
       end
 
       def install_templates
-        abs_path = File.expand_path("", Susanoo::Project.folder_name)
         template "www/index.html", "#{Susanoo::Project.folder_name}/www/index.html"
         template "www/assets/javascripts/application.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/application.js"
+                template "www/assets/javascripts/app.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/app.js"
         template "www/assets/stylesheets/application.css", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/application.css"
       end
 

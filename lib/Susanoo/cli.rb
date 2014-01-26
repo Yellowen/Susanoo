@@ -50,10 +50,7 @@ module Susanoo
           }
         end
       end
-      puts ">>>>>>>   >>>>>>>>>>", server
-
-      Rack::Handler::Thin.run(server, Port: port)
-      #server.start
+      Rack::Handler::WEBrick.run(server, Port: port)
     end
   end
 end
