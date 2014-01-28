@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'Susanoo/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "Susanoo"
+  spec.name          = "susanoo"
   spec.version       = Susanoo::VERSION
   spec.authors       = ["Sameer Rahmani"]
   spec.email         = ["lxsameer@gnu.org"]

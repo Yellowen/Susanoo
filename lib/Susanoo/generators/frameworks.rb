@@ -7,6 +7,7 @@ module Susanoo
       @@bower_data = {
         :name => "",
         :dependencies => {
+          # TODO: Set this to new version of angular
           angular: "1.2.9",
           "angular-touch" => "*",
           "angular-gestures" => "*",
@@ -21,6 +22,7 @@ module Susanoo
 
       @@js_files = ["jquery/jquery",
                     "lodash/dist/lodash",
+                    "angular/angular",
                     "angular-animate/angular-animate",
                     "angular-route/angular-route",
                     "angular-sanitize/angular-sanitize",
@@ -45,20 +47,24 @@ module Susanoo
         @@bower_data[:name] = Susanoo::Project.folder_name
 
         if yes? "Do you need Zurb Foundation? (y/n)"
+          # installing Zurb Foundation
           @@bower_data[:dependencies][:foundation] = "*"
+
           copy_file "lib/foundation/scss/foundation.scss", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/lib/foundation.scss"
           directory "lib/foundation/scss/foundation", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/lib/foundation"
 
-          @@js_files.concat ["modernizr/modernizr",
-                             "foundation/js/foundation"]
+          @@js_files.unshift "modernizr/modernizr"
+          @@js_files.unshift "foundation/js/foundation"
+
           @@is_foundation = true
           return
         end
 
-        if yes? "What aboud ionic framewor? (y/n)"
+        if yes? "What aboud ionic framework? (y/n)"
+          # Install ionic framework
           @@bower_data[:dependencies][:ionic] = "*"
-          @@js_files.concat(["ionic/js/ionic"])
-          @@js_dirs.concat(["ionic/js/ext"])
+          @@js_files.unshift "ionic/js/ionic"
+          @@js_dirs << "ionic/js/ext"
           @@css_dirs.concat(["ionic/scss"])
           @is_ionic = true
         end
@@ -82,6 +88,7 @@ module Susanoo
         template "www/assets/javascripts/app.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/app.js"
         template "www/assets/javascripts/main.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/main.js"
         template "www/assets/stylesheets/application.css", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/application.css"
+        template "www/assets/stylesheets/main.scss", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/main.scss"
 
         @source_paths << File.expand_path("#{Susanoo::Project.folder_name}/www/bower_components/")
 
@@ -118,6 +125,9 @@ module Susanoo
         @@is_ionic
       end
 
+      def js_files
+        @@js_files
+      end
     end
   end
 end
