@@ -12,11 +12,29 @@ module Susanoo
       Susanoo::Generators::Frameworks.start
     end
 
+    method_option :aliases => "g"
+    desc "generate GENERATOR [options]", "Run the given generator"
+    def generate(generator=nil, *options)
+      if generator.nil?
+        print_generator_list
+        return
+      end
+
+      begin
+        generator = Susanoo::Generators.const_get(camelize(generator.downcase))
+      rescue NameError
+        print  "[Error]:".colorize(:red)
+        say  "Generator `#{generator}` not found."
+        exit 1
+      end
+      generator.invoke(*options)
+    end
+
     desc "server", "Run development server."
     def server(port=6000)
       require 'sprockets'
       require 'rack'
-      require 'rack/rewrite'
+      requireh 'rack/rewrite'
 
       root = Dir.getwd
       #Rack::Handler::WEBrick.run :Port => 3000, :DocumentRoot => root
@@ -51,6 +69,22 @@ module Susanoo
         end
       end
       Rack::Handler::WEBrick.run(server, Port: port)
+    end
+
+    private
+
+    def camelize(str)
+      str.split("_").each {|s| s.capitalize! }.join("")
+    end
+
+    def print_generator_list
+      say "Available generators:"
+      say "---------------------------------------------------"
+      Susanoo::Generators.constants.each do |g|
+        generator = Susanoo::Generators.const_get(g)
+        generator_name = generator.to_s.downcase.split("::").last
+        say "\t #{generator_name}\t\t #{generator.desc}\n"
+      end
     end
   end
 end
