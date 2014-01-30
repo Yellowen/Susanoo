@@ -2,7 +2,7 @@ module Susanoo
   module Generators
     class Frameworks < Thor::Group
       include Thor::Actions
-      source_root File.expand_path('../../templates', __FILE__)
+      source_root File.expand_path('../../templates/application', __FILE__)
 
       @@bower_data = {
         :name => "",
@@ -41,6 +41,7 @@ module Susanoo
         template "Gemfile", "#{Susanoo::Project.folder_name}/Gemfile"
         template "Rakefile", "#{Susanoo::Project.folder_name}/Rakefile"
         template "config.ru", "#{Susanoo::Project.folder_name}/config.ru"
+        template "bin/susanoo", "#{Susanoo::Project.folder_name}/bin/susanoo"
       end
 
       def ask_for_framework
