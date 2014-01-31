@@ -1,0 +1,8 @@
+if ENV.include? "SUSANOO_HOME"
+  $:.unshift ENV["SUSANOO_HOME"]
+end
+
+require 'susanoo'
+
+Susanoo::CLI::Project.root = File.expand_path("../../", __FILE__)
+Susanoo::CLI::Project.start

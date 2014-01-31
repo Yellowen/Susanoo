@@ -2,9 +2,7 @@
 
 
 lib = File.expand_path('../../lib', __FILE__)
-$LOAD_PATH << lib
+$LOAD_PATH.unshift lib
 
-require "thor"
-require 'Susanoo'
-
-Susanoo::Cli.start
+require 'susanoo'
+Susanoo::CLI.run
