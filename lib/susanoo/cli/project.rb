@@ -91,9 +91,14 @@ module Susanoo
         say "---------------------------------------------------"
         Susanoo::Generators.constants.each do |g|
           generator = Susanoo::Generators.const_get(g)
-          generator_name = underscore(generator.to_s.split("::").last)
-          say "\t #{generator_name}\t\t #{generator.desc}\n"
+
+          unless generator.is_global_generator?
+            generator_name = underscore(generator.to_s.split("::").last)
+            say "#{generator_name}\t\t #{generator.desc}\n"
+          end
+
         end
+
       end
     end
   end

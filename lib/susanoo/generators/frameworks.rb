@@ -15,6 +15,7 @@ module Susanoo
           "angular-animate" => "*",
           "angular-sanitize" => "*",
           "angular-resource" => "*",
+          "angular-gettext" => "*",
           "jquery" => "*",
           "lodash" => "*",
         },
@@ -28,6 +29,7 @@ module Susanoo
                     "angular-sanitize/angular-sanitize",
                     "angular-touch/angular-touch",
                     "angular-gestures/gestures",
+                    "angular-gettext/dist/angular-gettext",
                     "angular-resource/angular-resource",
                    ]
       @@js_dirs = []
@@ -85,7 +87,16 @@ module Susanoo
 
       def install_templates
         template "www/index.html", "#{Susanoo::Project.folder_name}/www/index.html"
+        create_file "#{Susanoo::Project.folder_name}/www/views/.keep" do
+          " "
+        end
         template "www/assets/javascripts/application.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/application.js"
+        template "www/assets/javascripts/functions.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/functions.js"
+        template "www/assets/javascripts/variables.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/variables.js"
+
+        create_file "#{Susanoo::Project.folder_name}/www/assets/javascripts/modules/.keep" do
+          " "
+        end
         template "www/assets/javascripts/app.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/app.js"
         template "www/assets/javascripts/main.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/main.js"
         template "www/assets/stylesheets/application.css", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/application.css"
@@ -116,6 +127,11 @@ module Susanoo
           remove_dir "#{Susanoo::Project.folder_name}/www/bower_components"
         end
       end
+
+      def self.is_global_generator?
+        true
+      end
+
       private
 
       def is_foundation?

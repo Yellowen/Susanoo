@@ -48,6 +48,10 @@ module Susanoo
         end
       end
 
+      def self.is_global_generator?
+        true
+      end
+
       private
 
       def version
