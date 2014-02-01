@@ -1,3 +1,5 @@
 * Tasks
 ** TODO transfer changes from example app to main susanoo headline
 ** TODO Add .gitignore to new projects
+** TODO Add config.xml to templates
+** TODO make title tag of index.html dynamic

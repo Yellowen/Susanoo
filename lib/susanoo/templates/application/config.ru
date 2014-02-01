@@ -17,7 +17,7 @@ map "/statics" do
 end
 
 map "/" do
-  use Rack::Static, :urls => [""], :index => "www/index.html"
+  use Rack::Static, :root => "www", :urls => [""], :index => "index.html"
   run lambda { |env|
     [
      200,

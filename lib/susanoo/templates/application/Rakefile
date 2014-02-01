@@ -1,7 +1,7 @@
 require "bundler/setup"
 Bundler.require
 
-require "Susanoo/tasks"
+require "susanoo/tasks"
 Susanoo::Tasks.load_tasks
 
 task :default => :assets
