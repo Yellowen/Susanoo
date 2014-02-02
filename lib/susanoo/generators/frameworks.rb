@@ -43,6 +43,7 @@ module Susanoo
         template "Gemfile", "#{Susanoo::Project.folder_name}/Gemfile"
         template "Rakefile", "#{Susanoo::Project.folder_name}/Rakefile"
         template "config.ru", "#{Susanoo::Project.folder_name}/config.ru"
+        template ".gitignore", "#{Susanoo::Project.folder_name}/.gitignore"
         template "bin/susanoo", "#{Susanoo::Project.folder_name}/bin/susanoo"
       end
 
@@ -66,10 +67,10 @@ module Susanoo
         if yes? "What aboud ionic framework? (y/n)"
           # Install ionic framework
           @@bower_data[:dependencies][:ionic] = "*"
-          @@js_files.unshift "ionic/js/ionic"
-          @@js_dirs << "ionic/js/ext"
+          @@js_files.unshift "ionic/dist/js/ionic"
+          @@js_files << "ionic/dist/js/ionic-angular"
           @@css_dirs.concat(["ionic/scss"])
-          @is_ionic = true
+          @@is_ionic = true
         end
       end
 
@@ -87,9 +88,7 @@ module Susanoo
 
       def install_templates
         template "www/index.html", "#{Susanoo::Project.folder_name}/www/index.html"
-        create_file "#{Susanoo::Project.folder_name}/www/views/.keep" do
-          " "
-        end
+        template "www/views/main.html", "#{Susanoo::Project.folder_name}/www/views/main.html"
         template "www/assets/javascripts/application.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/application.js"
         template "www/assets/javascripts/functions.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/functions.js"
         template "www/assets/javascripts/variables.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/variables.js"
@@ -136,6 +135,10 @@ module Susanoo
 
       def is_foundation?
         @@is_foundation
+      end
+
+      def js_dirs
+        @@js_dirs
       end
 
       def is_ionic?

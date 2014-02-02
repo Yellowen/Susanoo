@@ -33,6 +33,8 @@ module Susanoo
             say "Adding #{platform.strip} platform ...".colorize(:green)
             system "cordova platform add #{platform.strip}"
           end
+          say "Adding console plugin to project".colorize(:green)
+          system "cordova plugin add org.apache.cordova.console"
         end
       end
 
