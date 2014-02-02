@@ -64,12 +64,16 @@ module Susanoo
           return
         end
 
-        if yes? "What aboud ionic framework? (y/n)"
+        if yes? "What about ionic framework? (y/n)"
           # Install ionic framework
           @@bower_data[:dependencies][:ionic] = "*"
           @@js_files.unshift "ionic/dist/js/ionic"
+          @@js_files << "angular-ui-router"
           @@js_files << "ionic/dist/js/ionic-angular"
           @@css_dirs.concat(["ionic/scss"])
+          # Unfortunately angular-ui-router bower package did not provide current
+          # So we have to install it manually
+          template "www/assets/javascripts/lib/angular-ui-router.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/lib/angular-ui-router.js"
           @@is_ionic = true
         end
       end
@@ -102,9 +106,10 @@ module Susanoo
         template "www/assets/stylesheets/main.scss", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/main.scss"
 
         @source_paths << File.expand_path("#{Susanoo::Project.folder_name}/www/bower_components/")
-
         @@js_files.each do |file|
-          copy_file "#{file}.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/lib/#{file}.js"
+          unless file == "angular-ui-router"
+            copy_file "#{file}.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/lib/#{file}.js"
+          end
         end
 
         @@js_dirs.each do |dir|
