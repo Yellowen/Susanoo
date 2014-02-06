@@ -11,6 +11,7 @@ assets.append_path(File.join(project_root, 'www', 'assets'))
 assets.append_path(File.join(project_root, 'www', 'assets', 'javascripts'))
 assets.append_path(File.join(project_root, 'www', 'assets', 'stylesheets'))
 assets.append_path(File.join(project_root, 'www', 'assets', 'images'))
+assets.append_path(File.join(project_root, 'www', 'assets', 'fonts'))
 
 map "/statics" do
   run assets
