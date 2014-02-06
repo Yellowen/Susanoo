@@ -54,12 +54,10 @@ module Susanoo
           # installing Zurb Foundation
           @@bower_data[:dependencies][:foundation] = "*"
 
-          copy_file "lib/foundation/scss/foundation.scss", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/lib/foundation.scss"
-          directory "lib/foundation/scss/foundation", "#{Susanoo::Project.folder_name}/www/assets/stylesheets/lib/foundation"
-
+          @@css_dirs << "foundation/scss"
           @@js_files.unshift "modernizr/modernizr"
           @@js_files.unshift "foundation/js/foundation"
-
+          @@js_dirs << "foundation/js/foundation"
           @@is_foundation = true
           return
         end
