@@ -1,3 +1,7 @@
+require "bundler/setup"
+
+Bundler.require
+
 desc "Compile assets into statics folder"
 task :assets do
   require "sprockets"
@@ -7,6 +11,7 @@ task :assets do
   assets.append_path "www/assets/javascripts"
   assets.append_path "www/assets/stylesheets"
 
+  Susanoo::Assets.path = ""
   LOOSE_APP_ASSETS = lambda do |path, filename|
     filename !~ %r~assets~  && !%w[.js .css].include?(File.extname(path))
   end
