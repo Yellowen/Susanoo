@@ -35,7 +35,7 @@ module Susanoo
       def server(port=6000)
         require 'sprockets'
         require 'rack'
-        requireh 'rack/rewrite'
+        require 'rack/rewrite'
 
         root = Dir.getwd
         #Rack::Handler::WEBrick.run :Port => 3000, :DocumentRoot => root

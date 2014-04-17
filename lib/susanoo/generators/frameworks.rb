@@ -21,7 +21,7 @@ module Susanoo
         },
       }
 
-      @@js_files = ["jquery/jquery",
+      @@js_files = ["jquery/dist/jquery",
                     "lodash/dist/lodash",
                     "angular/angular",
                     "angular-animate/angular-animate",
