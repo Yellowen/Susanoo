@@ -1,12 +1,12 @@
-require "pathname"
-require "susanoo/cli/global"
-require "susanoo/cli/project"
+require 'pathname'
+require 'susanoo/cli/global'
+require 'susanoo/cli/project'
 
 
 module Susanoo
   module CLI
 
-    EXEC_FILES = ["bin/susanoo"]
+    EXEC_FILES = ['bin/susanoo']
 
     def self.run
       unless execute
@@ -20,7 +20,7 @@ module Susanoo
       loop do
         # Find an executable in bin/susanoo
         # In other word are we in an susanoo project or not?
-        if exec_file = find_executable
+        if exec_file == find_executable
 
           # Inject path
           inject_dev_path
@@ -29,13 +29,13 @@ module Susanoo
         end
 
         Dir.chdir(cwd) and return false if Pathname.new(Dir.pwd).root?
-        Dir.chdir("../")
+        Dir.chdir('../')
       end
     end
 
     def self.inject_dev_path
-      if File.exist? File.expand_path("../../../.git", __FILE__)
-        ENV["SUSANOO_HOME"] = File.expand_path("../../", __FILE__)
+      if File.exist? File.expand_path('../../../.git', __FILE__)
+        ENV['SUSANOO_HOME'] = File.expand_path('../../', __FILE__)
       end
     end
 
