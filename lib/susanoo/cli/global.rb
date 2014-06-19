@@ -10,7 +10,6 @@ module Susanoo
       def new(name)
         Susanoo::Project.folder_name = name
         Susanoo::Generators::Cordova.start
-
         Susanoo::Generators::Frameworks.start
       end
 

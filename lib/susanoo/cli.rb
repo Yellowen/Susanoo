@@ -20,7 +20,8 @@ module Susanoo
       loop do
         # Find an executable in bin/susanoo
         # In other word are we in an susanoo project or not?
-        if exec_file == find_executable
+        # Note: Single equalsign is on purpose
+        if exec_file = find_executable
 
           # Inject path
           inject_dev_path

@@ -3,7 +3,8 @@ module Susanoo
     class Cordova < Thor::Group
       include Thor::Actions
 
-      CORDOVA_VERSION = "v3.3.0"
+      CORDOVA_VERSION = `cordova -v`
+      CORDOVA_PATH = `which cordova`
 
       def initialize_project
         fname = Susanoo::Project.folder_name.dup
@@ -22,7 +23,7 @@ module Susanoo
         # Project name
         project_name = ask "Project Name [#{fname.colorize(:light_red)}".colorize(:light_green) + "]: ".colorize(:light_green)
 
-        say "Initializing project with Apache Cordova #{version}"
+        say "Initializing project with Apache Cordova #{version} at #{CORDOVA_PATH}"
         system "cordova create #{Susanoo::Project.folder_name} #{package_name.chomp} #{project_name.chomp}"
       end
 
@@ -57,7 +58,7 @@ module Susanoo
       private
 
       def version
-        CORDOVA_VERSION
+        CORDOVA_VERSION.chomp
       end
 
     end
