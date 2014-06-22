@@ -1,4 +1,4 @@
-class Susanoo::Applicaion
+class Susanoo::Application
   include SimpleRouter::DSL
   include Sprockets::Helpers
 
