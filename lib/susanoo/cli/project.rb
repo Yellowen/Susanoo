@@ -8,14 +8,16 @@ module Susanoo
 
       package_name 'Susanoo'
 
+      map 's' => :server
+      map 'g' => :generate
+
       def self.root=(path)
         @@root = path
         Susanoo::Project.path = path
       end
 
-      method_option :aliases => "g"
-      desc "generate GENERATOR [options]", "Run the given generator"
-      def generate(generator_name=nil, *options)
+      desc 'generate GENERATOR [options]', 'Run the given generator'
+      def generate(generator_name = nil, *options)
         if generator_name.nil?
           print_generator_list
           return
@@ -24,16 +26,21 @@ module Susanoo
         begin
           generator = Susanoo::Generators.const_get(camelize(generator_name.downcase))
         rescue NameError
-          print  "[Error]:".colorize(:red)
+          print  '[Error]:'.colorize(:red)
           say  "Generator `#{generator}` not found."
           exit 1
         end
         generator.start options
       end
 
-      desc "server", "Run development server."
-      def server(port=6000)
+      method_option :debug, default: false
+      desc 'server', 'Run development server.'
+      def server(port = 3000)
+        project_root = Susanoo::Project.path
+        app = Susanoo::Application.new(project_root, port,
+                                       options[:debug])
 
+        app.start
       end
 
       private
