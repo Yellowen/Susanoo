@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry'
 
   spec.add_dependency 'thor'
+  spec.add_dependency 'thin'
   spec.add_dependency 'colorize'
   spec.add_dependency 'simple_router'
   spec.add_dependency 'rack'
