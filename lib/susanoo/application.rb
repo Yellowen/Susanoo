@@ -13,6 +13,7 @@ class Susanoo::Application
     @debug = debug
     @root = project_root
 
+    @router = Lotus::Router.new
     @environment = Sprockets::Environment.new(project_root) do |env|
       env.logger = Logger.new(STDOUT)
     end

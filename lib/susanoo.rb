@@ -3,9 +3,9 @@ require 'erb'
 require 'sprockets'
 require 'sprockets-helpers'
 require 'rack/rewrite'
-require 'simple_router'
 require 'tilt'
 require 'colorize'
+require 'lotus/router'
 
 module Susanoo
 end
