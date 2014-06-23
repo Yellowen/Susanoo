@@ -45,7 +45,6 @@ module Susanoo
         app = Rack::Server.start(app: ROUTER, server: :thin, Port: port,
                                  debug: options[:debug])
 
-        app.start
       end
 
       private
