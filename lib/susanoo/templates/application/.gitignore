@@ -18,7 +18,6 @@ Android/gen/
 Android/assets/
 
 # generated files
-bin/
 gen/
 
 # Local configuration file (sdk path, etc)
