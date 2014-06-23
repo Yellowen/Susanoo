@@ -5,7 +5,7 @@ class Susanoo::Application
   class Index < Susanoo::Controller
     def call(env)
       template = Tilt.new(File.join(project_root, 'www/index.html.erb'))
-      [200, {'Content-Type' => 'text/html'}, [template.render(environment)]]
+      [200, {'Content-Type' => 'text/html'}, [template.render(self)]]
     end
   end
 
@@ -15,5 +15,11 @@ class Susanoo::Application
     end
   end
 
+  class Views < Susanoo::Controller
+    def call(env)
+      #template = Tilt.new(File.join(project_root, 'www/index.html.erb'))
+      [200, {'Content-Type' => 'text/html'}, ["asdasd"]]
+    end
+  end
 
 end
