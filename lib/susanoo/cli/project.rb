@@ -39,12 +39,8 @@ module Susanoo
         project_root = Susanoo::Project.path
         require File.join(project_root, 'config/routes')
 
-        #app = Susanoo::Application.new(project_root, port,
-        #                               options[:debug])
-
         app = Rack::Server.start(app: ROUTER, server: :thin, Port: port,
                                  debug: options[:debug])
-
       end
 
       private
