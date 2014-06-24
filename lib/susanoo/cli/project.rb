@@ -39,6 +39,9 @@ module Susanoo
         project_root = Susanoo::Project.path
         require File.join(project_root, 'config/routes')
 
+        # Set global debug flag
+        Susanoo::Project.debug = options[:debug]
+
         app = Rack::Server.start(app: ROUTER, server: :thin, Port: port,
                                  debug: options[:debug])
       end

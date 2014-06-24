@@ -1,14 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'susanoo', '~><%= Susanoo::VERSION %>'
-gem 'rake'
-gem 'rack'
-gem 'rack-rewrite'
-gem 'thin'
-gem 'uglifier', '~>2.1.1'
-gem 'yui-compressor', '~>0.9.6'
-
-gem 'sprockets', '~>2.11.0'
-gem 'sass'
+gem 'susanoo', '~>0.5.0', path: '/home/lxsameer/src/Yellowen/Susanoo'
 gem 'pry'
 gem 'rerun'
+gem 'rack'
