@@ -89,7 +89,7 @@ module Susanoo
       end
 
       def install_templates
-        template "www/index.html.erb", "#{Susanoo::Project.folder_name}/www/index.html.erb"
+        copy_file "www/index.html.erb", "#{Susanoo::Project.folder_name}/www/index.html.erb"
         template "www/views/main.html", "#{Susanoo::Project.folder_name}/www/views/main.html"
         template "www/assets/javascripts/application.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/application.js"
         template "www/assets/javascripts/functions.js", "#{Susanoo::Project.folder_name}/www/assets/javascripts/functions.js"
