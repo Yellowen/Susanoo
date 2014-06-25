@@ -33,7 +33,7 @@ module Susanoo
         generator.start options
       end
 
-      method_option :debug, default: false
+      method_option :debug, default: true
       desc 'server', 'Run development server.'
       def server(port = 3000)
         project_root = Susanoo::Project.path
