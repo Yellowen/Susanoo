@@ -10,6 +10,7 @@ require 'lotus/router'
 module Susanoo
 end
 
+require 'susanoo/static_generator'
 require 'susanoo/controller'
 require 'susanoo/project'
 require 'susanoo/cli'

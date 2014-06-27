@@ -7,7 +7,7 @@ module Susanoo
     attr_accessor :debug
     attr_accessor :project_root
 
-    def initialize(static_compile = false)
+    def initialize
       @project_root = Susanoo::Project.path
 
       @environment = Sprockets::Environment.new(@project_root) do |env|
@@ -20,12 +20,13 @@ module Susanoo
       @environment.append_path(File.join(@project_root, 'www', 'assets', 'images'))
       @environment.append_path(File.join(@project_root, 'www', 'assets', 'fonts'))
 
-      @static_compile = static_compile
+      Susanoo::StaticGenerator.register self.class
     end
 
     def static_compile?
       @static_compile
     end
+
 
   end
 end

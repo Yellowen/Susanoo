@@ -46,7 +46,24 @@ module Susanoo
                                  debug: options[:debug])
       end
 
+      desc 'build', 'Build the application.'
+      def build
+        project_root = Susanoo::Project.path
+        require File.join(project_root, 'config/routes')
+
+        Susanoo::StaticGenerator.classes.each do |klass|
+          instance = klass.new
+          if instance.respond_to? :build
+            instance.build
+          else
+            puts "[Warning]: '#{instance.class.to_s}' does not have 'build' method."
+          end
+        end
+
+      end
+
       private
+      # Private ---------------------------
 
       def camelize(str)
         str.split("_").each {|s| s.capitalize! }.join("")

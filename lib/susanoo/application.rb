@@ -7,6 +7,14 @@ class Susanoo::Application
       template = Tilt.new(File.join(project_root, 'www/index.html.erb'))
       [200, {'Content-Type' => 'text/html'}, [template.render(self)]]
     end
+
+    def build
+      template = Tilt.new(File.join(project_root, 'www/index.html.erb'))
+
+      File.open(File.join(project_root, 'www/.build/index.html'), 'w') do |f|
+        f.puts template.render(self)
+      end
+    end
   end
 
   class Assets < Susanoo::Controller
