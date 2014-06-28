@@ -32,6 +32,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'yui-compressor', '~>0.9.6'
   spec.add_dependency 'sprockets', '~>2.11.0'
   spec.add_dependency 'sprockets-helpers'
-  spec.add_dependency 'sass'
+  spec.add_dependency 'sass', '3.2.15'
   spec.add_dependency 'tilt'
 end
