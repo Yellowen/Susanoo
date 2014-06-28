@@ -6,6 +6,8 @@ module Susanoo
   module CLI
     class Project < Thor
 
+      include ::Thor::Actions
+
       package_name 'Susanoo'
 
       map 's' => :server
@@ -49,12 +51,25 @@ module Susanoo
       desc 'build', 'Build the application.'
       def build
         project_root = Susanoo::Project.path
+
         require File.join(project_root, 'config/routes')
+
+        build_dir = File.join(project_root, 'www')
+        # setup build directory
+
+        remove_file build_dir if File.exist? build_dir
+        # Create the www directory if there isn't
+        # WWW directory will be the build directory
+        # which will contains the static files.
+        #
+        # NOTE: cordova only uses this directory
+        # and we can't change it as far as I know
+        empty_directory build_dir
 
         Susanoo::StaticGenerator.classes.each do |klass|
           instance = klass.new
           if instance.respond_to? :build
-            instance.build
+            instance.build(self)
           else
             puts "[Warning]: '#{instance.class.to_s}' does not have 'build' method."
           end

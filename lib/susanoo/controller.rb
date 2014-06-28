@@ -1,3 +1,6 @@
+require 'thor'
+require 'thor/actions'
+
 module Susanoo
   class Controller
 
@@ -14,11 +17,11 @@ module Susanoo
         env.logger = Logger.new(STDOUT)
       end
 
-      @environment.append_path(File.join(@project_root, 'www', 'assets'))
-      @environment.append_path(File.join(@project_root, 'www', 'assets', 'javascripts'))
-      @environment.append_path(File.join(@project_root, 'www', 'assets', 'stylesheets'))
-      @environment.append_path(File.join(@project_root, 'www', 'assets', 'images'))
-      @environment.append_path(File.join(@project_root, 'www', 'assets', 'fonts'))
+      @environment.append_path(File.join(@project_root, 'src', 'assets'))
+      @environment.append_path(File.join(@project_root, 'src', 'assets', 'javascripts'))
+      @environment.append_path(File.join(@project_root, 'src', 'assets', 'stylesheets'))
+      @environment.append_path(File.join(@project_root, 'src', 'assets', 'images'))
+      @environment.append_path(File.join(@project_root, 'src', 'assets', 'fonts'))
 
       Susanoo::StaticGenerator.register self.class
     end
