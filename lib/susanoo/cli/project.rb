@@ -12,6 +12,7 @@ module Susanoo
 
       map 's' => :server
       map 'g' => :generate
+      map 'r' => :run
 
       def self.root=(path)
         @@root = path
@@ -36,16 +37,29 @@ module Susanoo
       end
 
       method_option :debug, default: true
+      method_option :built, default: false
       desc 'server', 'Run development server.'
       def server(port = 3000)
         project_root = Susanoo::Project.path
-        require File.join(project_root, 'config/routes')
 
-        # Set global debug flag
-        Susanoo::Project.debug = options[:debug]
+        if options[:built]
+          unless File.directory? File.join(project_root, 'www')
+            error "'www' directory is not present. Build you app first."
+            return
+          end
 
-        app = Rack::Server.start(app: ROUTER, server: :thin, Port: port,
-                                 debug: options[:debug])
+          app = Rack::Directory.new File.join(project_root, 'www')
+
+        else
+          require File.join(project_root, 'config/routes')
+          # Set global debug flag
+          Susanoo::Project.debug = options[:debug]
+
+          app = ROUTER
+        end
+
+        Rack::Server.start(app: app, server: :thin, Port: port,
+                           debug: options[:debug])
       end
 
       desc 'build', 'Build the application.'
@@ -75,6 +89,16 @@ module Susanoo
           end
         end
 
+      end
+
+      desc 'run PLATFORM', 'Run application on PLATFORM.'
+      def run_in(platform = :android)
+        # Build the project first
+        build
+
+        inside Susanoo::Project.path do
+          system "cordova run #{platform.to_s}"
+        end
       end
 
       private
