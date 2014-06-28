@@ -43,9 +43,10 @@ class Susanoo::Application
       assets.each_logical_path(*precompile).each {|path|
         assets[path].write_to "www/assets/#{path}"
       }
-
-      system  'cp src/assets/images www/assets/images -rv'
-      system  'cp src/assets/fonts www/assets/fonts -rv'
+      generator.say_status 'copy', 'src/assets/images'
+      `cp #{project_root}/src/assets/images #{project_root}/www/assets/images -rv`
+      generator.say_status 'copy', 'src/assets/fonts'
+      `cp #{project_root}/src/assets/fonts #{project_root}/www/assets/fonts -rv`
 
     end
   end
@@ -62,6 +63,28 @@ class Susanoo::Application
         fail "There is no '#{path}' in 'src/views' directory."
       end
       [200, {'Content-Type' => 'text/html'}, [template.render(self)]]
+    end
+
+    def build(generator)
+      file_pattern = File.join(project_root, 'src/views/**/*.{html,html.erb}')
+      dest_path = File.join(project_root, 'www')
+      src_path = File.join(project_root, 'src')
+
+      Dir.glob(file_pattern) do |file|
+        template = Tilt.new file
+
+        dest_file = File.join(dest_path,
+                              file.gsub(src_path, ''))
+
+        # Create missing directories in destination path
+        FileUtils.mkpath dest_path
+
+        # Remove erb extension name from destination path
+        dest_file.gsub!('.erb', '') if File.extname(dest_file) == 'erb'
+
+        # Create the destination file
+        generator.create_file dest_file, template.render(self)
+      end
     end
   end
 
