@@ -1,6 +1,0 @@
-<% if is_ionic? %>
-@import "lib/ionic/scss/ionic";
-<% end %>
-<% if is_foundation? %>
-@import "lib/foundation/scss/foundation";
-<% end %>
