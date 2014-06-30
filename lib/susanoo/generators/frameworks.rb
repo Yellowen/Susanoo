@@ -40,17 +40,17 @@ module Susanoo
       @@is_ionic = false
 
       def susanoo_files
-        template "Gemfile", "#{Susanoo::Project.folder_name}/Gemfile"
-        template "Rakefile", "#{Susanoo::Project.folder_name}/Rakefile"
-        directory "config", "#{Susanoo::Project.folder_name}/config"
-        template ".gitignore", "#{Susanoo::Project.folder_name}/.gitignore"
-        template "bin/susanoo", "#{Susanoo::Project.folder_name}/bin/susanoo"
+        template 'Gemfile', "#{Susanoo::Project.folder_name}/Gemfile"
+        template 'Rakefile', "#{Susanoo::Project.folder_name}/Rakefile"
+        directory 'config', "#{Susanoo::Project.folder_name}/config"
+        template '.gitignore', "#{Susanoo::Project.folder_name}/.gitignore"
+        template 'bin/susanoo', "#{Susanoo::Project.folder_name}/bin/susanoo"
       end
 
       def bower_install
         require 'json'
         inside Susanoo::Project.folder_name do
-          inside 'www' do
+          inside 'src' do
             create_file 'bower.json' do
               JSON.pretty_generate(@@bower_data)
             end
