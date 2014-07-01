@@ -5,39 +5,36 @@ module Susanoo
       source_root File.expand_path('../../templates/application', __FILE__)
 
       @@bower_data = {
-        :name => "",
+        :name => 'temp_name',
         :dependencies => {
           # TODO: Set this to new version of angular
-          angular: "1.2.9",
-          "angular-touch" => "*",
-          "angular-gestures" => "*",
-          "angular-route" => "*",
-          "angular-animate" => "*",
-          "angular-sanitize" => "*",
-          "angular-resource" => "*",
-          "angular-gettext" => "*",
-          "jquery" => "*",
-          "lodash" => "*",
+          angular: '1.2.9',
+          'angular-touch' => '*',
+          'angular-gestures' => '*',
+          'angular-route' => '*',
+          'angular-animate' => '*',
+          'angular-sanitize' => '*',
+          'angular-resource' => '*',
+          'angular-gettext' => '*',
+          'jquery' => '*',
+          'lodash' => '*',
         },
       }
 
-      @@js_files = ["jquery/dist/jquery",
-                    "lodash/dist/lodash",
-                    "angular/angular",
-                    "angular-animate/angular-animate",
-                    "angular-route/angular-route",
-                    "angular-sanitize/angular-sanitize",
-                    "angular-touch/angular-touch",
-                    "angular-gestures/gestures",
-                    "angular-gettext/dist/angular-gettext",
-                    "angular-resource/angular-resource",
+      @@js_files = ['jquery/dist/jquery',
+                    'lodash/dist/lodash',
+                    'angular/angular',
+                    'angular-animate/angular-animate',
+                    'angular-route/angular-route',
+                    'angular-sanitize/angular-sanitize',
+                    'angular-touch/angular-touch',
+                    'angular-gestures/gestures',
+                    'angular-gettext/dist/angular-gettext',
+                    'angular-resource/angular-resource',
                    ]
       @@js_dirs = []
       @@css_files = []
       @@css_dirs = []
-
-      @@is_foundation = false
-      @@is_ionic = false
 
       def susanoo_files
         template 'Gemfile', "#{Susanoo::Project.folder_name}/Gemfile"
