@@ -61,10 +61,10 @@ module Susanoo
         template 'src/views/main.html', "#{Susanoo::Project.folder_name}/src/views/main.html"
         template 'src/assets/javascripts/application.js', "#{Susanoo::Project.folder_name}/src/assets/javascripts/application.js"
         template 'src/assets/javascripts/functions.js', "#{Susanoo::Project.folder_name}/src/assets/javascripts/functions.js"
-        template 'src/assets/javascripts/variables.js', "#{Susanoo::Project.folder_name}/src/assets/javascripts/variables.js.erb"
+        copy_file 'src/assets/javascripts/variables.js', "#{Susanoo::Project.folder_name}/src/assets/javascripts/variables.js.erb"
 
         create_file "#{Susanoo::Project.folder_name}/src/assets/javascripts/modules/.keep" do
-          " "
+          ' '
         end
         template 'src/assets/javascripts/app.js', "#{Susanoo::Project.folder_name}/src/assets/javascripts/app.js"
         template 'src/assets/javascripts/main.js', "#{Susanoo::Project.folder_name}/src/assets/javascripts/main.js"

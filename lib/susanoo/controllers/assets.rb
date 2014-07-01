@@ -36,11 +36,17 @@ class Susanoo::Application
         assets[path].write_to "www/assets/#{dir}/#{path}"
       }
 
-      generator.say_status 'copy', 'src/assets/images'
-      `cp #{project_root}/src/assets/images #{project_root}/www/assets/images -rv`
-      generator.say_status 'copy', 'src/assets/fonts'
-      `cp #{project_root}/src/assets/fonts #{project_root}/www/assets/fonts -rv`
+      if File.exist? File.join(project_root,
+                               'src/assets/images')
+        generator.say_status 'copy', 'src/assets/images'
+        `cp #{project_root}/src/assets/images #{project_root}/www/assets/images`
+      end
 
+      if File.exist? File.join(project_root,
+                               'src/assets/fonts')
+        generator.say_status 'copy', 'src/assets/fonts'
+        `cp #{project_root}/src/assets/fonts #{project_root}/www/assets/fonts`
+      end
     end
   end
 end

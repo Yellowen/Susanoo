@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'susanoo', '~>0.5.0', path: '/home/lxsameer/src/Yellowen/Susanoo'
+gem 'susanoo'
 gem 'pry'
 gem 'rerun'
 gem 'rack'
