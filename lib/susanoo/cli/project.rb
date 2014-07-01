@@ -12,7 +12,7 @@ module Susanoo
 
       map 's' => :server
       map 'g' => :generate
-      map 'r' => :run
+      map 'r' => :run_in
 
       def self.root=(path)
         @@root = path
