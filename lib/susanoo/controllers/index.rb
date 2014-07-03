@@ -11,6 +11,12 @@ class Susanoo::Application
     end
 
     def build(generator)
+      # Configure Sprockets::Helpers (if necessary)
+      Sprockets::Helpers.configure do |config|
+        config.environment = @environment
+        config.prefix      = 'assets'
+      end
+
       template = Tilt.new(File.join(project_root, 'src/index.html.erb'))
       data = template.render(self)
       # God forgive me for hard coding this part
