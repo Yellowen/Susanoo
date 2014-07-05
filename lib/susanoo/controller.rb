@@ -17,6 +17,7 @@ module Susanoo
         env.logger = Logger.new(STDOUT)
       end
 
+      #@environment.append_path(@project_root)
       @environment.append_path(File.join(@project_root, 'src', 'assets'))
       @environment.append_path(File.join(@project_root, 'src', 'assets', 'javascripts'))
       @environment.append_path(File.join(@project_root, 'src', 'assets', 'stylesheets'))

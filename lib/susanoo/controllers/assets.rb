@@ -1,4 +1,6 @@
 require 'rack'
+require 'uglifier'
+require 'yui/compressor'
 
 class Susanoo::Application
 
@@ -15,11 +17,6 @@ class Susanoo::Application
                                    'src/assets/javascripts')
       assets.append_path File.join(project_root,
                                    'src/assets/stylesheets')
-
-      require 'rake/sprocketstask'
-      require 'uglifier'
-      require 'yui/compressor'
-      require "#{project_root}/config/routes"
 
       func = lambda do |path, filename|
         filename !~ %r~assets~  && !%w[.js .css].include?(File.extname(path))
@@ -39,13 +36,13 @@ class Susanoo::Application
       if File.exist? File.join(project_root,
                                'src/assets/images')
         generator.say_status 'copy', 'src/assets/images'
-        `cp #{project_root}/src/assets/images #{project_root}/www/assets/images`
+        `cp #{project_root}/src/assets/images #{project_root}/www/assets/images -r`
       end
 
       if File.exist? File.join(project_root,
                                'src/assets/fonts')
         generator.say_status 'copy', 'src/assets/fonts'
-        `cp #{project_root}/src/assets/fonts #{project_root}/www/assets/fonts`
+        `cp #{project_root}/src/assets/fonts #{project_root}/www/assets/fonts -rv`
       end
     end
   end
