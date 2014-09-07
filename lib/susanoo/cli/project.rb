@@ -21,18 +21,24 @@ module Susanoo
 
       desc 'generate GENERATOR [options]', 'Run the given generator'
       def generate(generator_name = nil, *options)
+        # Print the generators list and exit
         if generator_name.nil?
           print_generator_list
           return
         end
 
+        # Try to load and get the generator Class
         begin
-          generator = Susanoo::Generators.const_get(camelize(generator_name.downcase))
+          klass = camelize(generator_name.downcase)
+          generator = Susanoo::Generators.const_get(klass)
+
         rescue NameError
           print  '[Error]:'.colorize(:red)
           say  "Generator `#{generator}` not found."
           exit 1
         end
+
+        # Run the generator with given options
         generator.start options
       end
 

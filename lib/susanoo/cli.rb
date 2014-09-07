@@ -1,6 +1,12 @@
+require 'rubygems'
+require 'bundler/setup'
+
+Bundler.require
+
 require 'pathname'
 require 'susanoo/cli/global'
 require 'susanoo/cli/project'
+require 'active_support/core_ext/string/inflections'
 
 
 module Susanoo

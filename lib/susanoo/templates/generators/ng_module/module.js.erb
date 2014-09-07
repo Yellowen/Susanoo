@@ -1,0 +1,20 @@
+// <%= module_name.humanize%> Module
+var <%= module_name %> = angular.module("<%= module_name.camelize %>", ["gettext"<% dependencies.each do |dep| %>, "<%= dep.camelize %>"<% end %>]);
+
+// configuration section ---------------------------
+<%= module_name %>.config(["$routeProvider", function($routeProvider){
+
+    // Configuring application index route.
+    // Add any route you need here.
+    $routeProvider.
+        when("/<%= module_name %>/", {
+            templateUrl: template("<%= directory_name %>/<%= module_name %>/index"),
+            controller: "<%= module_name %>Controller"
+        });
+
+}]);
+
+<%= module_name %>.controller("<%= module_name.camelize %>Controller", ["$scope", "gettext", function($scope, gettext){
+    // <%= module_name.camelize.humanize %> controller of application. This controller is responsible for `/<%= module_name %>` url
+
+}]);
