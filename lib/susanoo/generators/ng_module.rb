@@ -18,21 +18,26 @@ module Susanoo
       end
 
       def setup_directories
-        unless directory_name.nil?
-          empty_directory "src/views/#{directory_name}"
-          empty_directory "src/assets/javascripts/modules/#{directory_name}"
-        end
+        empty_directory "src/views/#{directory_name}#{module_name}"
+
+        mpath = 'src/assets/javascripts/modules/'
+        empty_directory "#{mpath}#{directory_name}" unless directory_name.nil?
       end
 
       def install_js_module
-        template 'module.js.erb', "src/assets/javascripts/modules/#{directory_name}/#{module_name}.js"
+        template 'module.js.erb', "src/assets/javascripts/modules/#{directory_name}#{module_name}.js"
+      end
+
+      def install_view
+        template('index.html.erb',
+                 "src/views/#{directory_name}#{module_name}/index.html")
       end
 
       private
 
       def directory_name
         dir_name = name.split('/')[0..-2].join('/')
-        return dir_name unless dir_name.empty?
+        return dir_name + '/' unless dir_name.empty?
         nil
       end
 
