@@ -18,8 +18,10 @@ module Susanoo
       end
 
       def setup_directories
-        empty_directory "src/views/#{directory_name}"
-        empty_directory "src/assets/javascripts/modules/#{directory_name}"
+        unless directory_name.nil?
+          empty_directory "src/views/#{directory_name}"
+          empty_directory "src/assets/javascripts/modules/#{directory_name}"
+        end
       end
 
       def install_js_module
