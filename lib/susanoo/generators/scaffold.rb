@@ -7,7 +7,7 @@ module Susanoo
 
       argument :name, :type => :string, :desc => "Name of scaffold"
 
-      def self.is_global_generator?
+      def self.global_generator?
         false
       end
 

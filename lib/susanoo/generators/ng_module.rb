@@ -5,8 +5,8 @@ module Susanoo
 
       desc 'Create an AngularJS module.'
 
-      argument :name, :type => :string, :desc => "Name of AngularJS"
-      class_option :deps, :type => :string, :default => '', :desc => "Dependencies of Angularjs module, comma separated"
+      argument :name, type: :string, desc: 'Name of AngularJS'
+      class_option :deps, type: :string, default: '', desc: 'Dependencies of Angularjs module, comma separated'
 
       def self.source_root
         File.join(File.dirname(__FILE__),

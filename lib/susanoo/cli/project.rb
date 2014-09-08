@@ -13,6 +13,7 @@ module Susanoo
       map 's' => :server
       map 'g' => :generate
       map 'r' => :run_in
+      map 'd' => :destroy
 
       def self.root=(path)
         @@root = path
@@ -21,25 +22,18 @@ module Susanoo
 
       desc 'generate GENERATOR [options]', 'Run the given generator'
       def generate(generator_name = nil, *options)
-        # Print the generators list and exit
-        if generator_name.nil?
-          print_generator_list
-          return
-        end
-
-        # Try to load and get the generator Class
-        begin
-          klass = camelize(generator_name.downcase)
-          generator = Susanoo::Generators.const_get(klass)
-
-        rescue NameError
-          print  '[Error]:'.colorize(:red)
-          say  "Generator `#{generator}` not found."
-          exit 1
-        end
-
+        generator = get_the_generator_class generator_name
         # Run the generator with given options
-        generator.start options
+        generator.start(options, behavior: :invoke,
+                        destination_root: project_root)
+      end
+
+      desc 'destroy GENERATOR [options]', 'Destroy the given generator'
+      def destroy(generator_name = nil, *options)
+        generator = get_the_generator_class generator_name
+
+        generator.start(options, behavior: :revoke,
+                        destination_root: project_root)
       end
 
       method_option :debug, default: true
@@ -110,26 +104,35 @@ module Susanoo
       private
       # Private ---------------------------
 
-      def camelize(str)
-        str.split("_").each {|s| s.capitalize! }.join("")
-      end
+      def get_the_generator_class(generator_name)
+        # Print the generators list and exit
+        if generator_name.nil?
+          print_generator_list
+          return
+        end
 
-      def underscore(str)
-        str.gsub(/::/, '/').
-          gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-          gsub(/([a-z\d])([A-Z])/,'\1_\2').
-          tr("-", "_").
-          downcase
+        # Try to load and get the generator Class
+        begin
+          klass = generator_name.downcase.camelize
+          generator = Susanoo::Generators.const_get(klass)
+
+        rescue NameError
+          print  '[Error]:'.colorize(:red)
+          say  "Generator `#{generator}` not found."
+          exit 1
+        end
+        generator
       end
 
       def print_generator_list
-        say "Available generators:"
-        say "---------------------------------------------------"
+        say 'Available generators:'
+        say '---------------------------------------------------'
         Susanoo::Generators.constants.each do |g|
           generator = Susanoo::Generators.const_get(g)
 
-          unless generator.is_global_generator?
-            generator_name = underscore(generator.to_s.split("::").last)
+          if generator.respond_to?(:global_generator?) && \
+            !generator.global_generator?
+            generator_name = generator.to_s.split('::').last.underscore
             say "#{generator_name}\t\t #{generator.desc}\n"
           end
 
