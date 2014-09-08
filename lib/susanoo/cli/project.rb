@@ -25,7 +25,7 @@ module Susanoo
         generator = get_the_generator_class generator_name
         # Run the generator with given options
         generator.start(options, behavior: :invoke,
-                        destination_root: project_root)
+                        destination_root: Susanoo::Project.path)
       end
 
       desc 'destroy GENERATOR [options]', 'Destroy the given generator'
@@ -33,7 +33,7 @@ module Susanoo
         generator = get_the_generator_class generator_name
 
         generator.start(options, behavior: :revoke,
-                        destination_root: project_root)
+                        destination_root: Susanoo::Project.path)
       end
 
       method_option :debug, default: true
