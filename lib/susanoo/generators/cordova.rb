@@ -10,7 +10,7 @@ module Susanoo
         fname = Susanoo::Project.folder_name.dup
 
         # Java Package name
-        package_name = ask "Java Package Name: ".colorize(:light_green)
+        package_name = ask 'Java Package Name: '.colorize(:light_green)
         if package_name.chomp.strip.empty?
           package_name = "com.example.#{fname.gsub("-", "_")}"
         else
@@ -28,25 +28,25 @@ module Susanoo
       end
 
       def platforms
-        platforms = ask "Platforms (comma separated): ".colorize(:light_blue)
+        platforms = ask 'Platforms (comma separated): '.colorize(:light_blue)
         inside Susanoo::Project.folder_name do
           platforms.chomp.split(",").each do |platform|
             say "Adding #{platform.strip} platform ...".colorize(:green)
             system "cordova platform add #{platform.strip}"
           end
-          say "Adding console plugin to project".colorize(:green)
-          system "cordova plugin add org.apache.cordova.console"
+          say 'Adding console plugin to project'.colorize(:green)
+          system 'cordova plugin add org.apache.cordova.console'
         end
       end
 
       def remove_default_files
         say "Removing cordova default files . . .".colorize(:yellow)
         inside Susanoo::Project.folder_name do
-          inside "www" do
-            remove_file "index.html"
-            remove_file "js"
-            remove_file "css"
-            remove_file "img"
+          inside 'www' do
+            remove_file 'index.html'
+            remove_file 'js'
+            remove_file 'css'
+            remove_file 'img'
           end
         end
       end

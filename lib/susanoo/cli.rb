@@ -1,7 +1,4 @@
 require 'rubygems'
-require 'bundler/setup'
-
-Bundler.require
 
 require 'pathname'
 require 'susanoo/cli/global'

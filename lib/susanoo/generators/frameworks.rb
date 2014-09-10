@@ -42,6 +42,7 @@ module Susanoo
         directory 'config', "#{Susanoo::Project.folder_name}/config"
         template '.gitignore', "#{Susanoo::Project.folder_name}/.gitignore"
         template 'bin/susanoo', "#{Susanoo::Project.folder_name}/bin/susanoo"
+        template 'lib/app_module.rb.erb', "#{Susanoo::Project.folder_name}/lib/#{Susanoo::Project.folder_name}.rb"
       end
 
       def bower_install
