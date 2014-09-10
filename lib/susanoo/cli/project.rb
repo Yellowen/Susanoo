@@ -14,10 +14,17 @@ module Susanoo
       map 'g' => :generate
       map 'r' => :run_in
       map 'd' => :destroy
+      map 'b' => :build
 
+      # Set the project root
       def self.root=(path)
         @@root = path
         Susanoo::Project.path = path
+      end
+
+      # Set source paths for current generator
+      def self.source_root
+        "#{@@root}/src"
       end
 
       desc 'generate GENERATOR [options]', 'Run the given generator'
@@ -68,6 +75,8 @@ module Susanoo
 
         require File.join(project_root, 'config/routes')
 
+        router = ROUTER.instance_variable_get('@router')
+
         build_dir = File.join(project_root, 'www')
         # setup build directory
 
@@ -80,15 +89,16 @@ module Susanoo
         # and we can't change it as far as I know
         empty_directory build_dir
 
-        Susanoo::StaticGenerator.classes.each do |klass|
-          instance = klass.new
-          if instance.respond_to? :build
-            instance.build(self)
+        router.routes.each do |route|
+          controller = route.dest
+          if controller.respond_to? :build
+            say_status 'build', "Controller: #{controller.__getobj__.class}"
+            controller.build(self, route.dup)
           else
-            puts "[Warning]: '#{instance.class.to_s}' does not have 'build' method."
+            say_status 'warning', "#{controller.__getobj__.class.to_s}' does not have 'build' method.",
+                       :yellow
           end
         end
-
       end
 
       desc 'run PLATFORM', 'Run application on PLATFORM.'
@@ -117,8 +127,8 @@ module Susanoo
           generator = Susanoo::Generators.const_get(klass)
 
         rescue NameError
-          print  '[Error]:'.colorize(:red)
-          say  "Generator `#{generator}` not found."
+          say_status 'Error', "Generator `#{generator_name}` not found.",
+                     :red
           exit 1
         end
         generator

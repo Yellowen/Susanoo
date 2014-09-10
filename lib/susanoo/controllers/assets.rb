@@ -11,7 +11,7 @@ class Susanoo::Application
       run environment
     end
 
-    def build(generator)
+    def build(generator, route)
       assets = Sprockets::Environment.new
       assets.append_path File.join(project_root,
                                    'src/assets/javascripts')
@@ -42,7 +42,7 @@ class Susanoo::Application
       if File.exist? File.join(project_root,
                                'src/assets/fonts')
         generator.say_status 'copy', 'src/assets/fonts'
-        `cp #{project_root}/src/assets/fonts #{project_root}/www/assets/fonts -rv`
+        `cp #{project_root}/src/assets/fonts #{project_root}/www/assets/fonts -r`
       end
     end
   end

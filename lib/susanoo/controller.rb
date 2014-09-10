@@ -31,6 +31,5 @@ module Susanoo
       @static_compile
     end
 
-
   end
 end

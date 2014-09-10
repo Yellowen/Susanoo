@@ -12,3 +12,4 @@ end
 require 'susanoo/controllers/index'
 require 'susanoo/controllers/views'
 require 'susanoo/controllers/assets'
+require 'susanoo/controllers/static'
