@@ -1,6 +1,6 @@
 require 'thor'
 require 'susanoo/generators'
-
+require 'susanoo/irb'
 
 module Susanoo
   module CLI
@@ -15,6 +15,7 @@ module Susanoo
       map 'r' => :run_in
       map 'd' => :destroy
       map 'b' => :build
+      map 'c' => :console
 
       # Set the project root
       def self.root=(path)
@@ -109,6 +110,14 @@ module Susanoo
         inside Susanoo::Project.path do
           system "cordova run #{platform.to_s}"
         end
+      end
+
+      desc 'console', 'Run pry in environment of `Susanoo`. '
+      def console
+        project_root = Susanoo::Project.path
+        require File.join(project_root, 'config/routes')
+
+        IRB.start_session(binding)
       end
 
       private
