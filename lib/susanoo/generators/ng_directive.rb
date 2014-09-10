@@ -15,6 +15,9 @@ module Susanoo
       class_option :replace, type: :boolean, default: true,
          desc: 'AngularJS directive replace option'
 
+      # TODO: Add an append class option to allow user
+      #       to append the directive to already defined
+      #       modules
 
       def self.source_root
         File.join(File.dirname(__FILE__),
