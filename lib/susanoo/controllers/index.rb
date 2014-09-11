@@ -14,7 +14,7 @@ class Susanoo::Application
       # Configure Sprockets::Helpers (if necessary)
       Sprockets::Helpers.configure do |config|
         config.environment = @environment
-        config.prefix      = 'assets'
+        config.prefix      = '/assets'
         config.debug       = false
       end
 

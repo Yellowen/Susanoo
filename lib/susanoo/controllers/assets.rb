@@ -12,25 +12,36 @@ class Susanoo::Application
     end
 
     def build(generator, route)
-      assets = Sprockets::Environment.new
-      assets.append_path File.join(project_root,
+
+      Sprockets::Helpers.configure do |config|
+        config.prefix      = 'assets'
+        config.debug       = false
+        config.environment = @environment
+      end
+
+      @environment.append_path File.join(project_root,
                                    'src/assets/javascripts')
-      assets.append_path File.join(project_root,
-                                   'src/assets/stylesheets')
+      @environment.append_path File.join(project_root,
+                             'src/assets/stylesheets')
+
+      @environment.append_path File.join(project_root,
+                                   'src/assets/fonts')
+
 
       func = lambda do |path, filename|
         filename !~ %r~assets~  && !%w[.js .css].include?(File.extname(path))
       end
 
       precompile = [func, /(?:\/|\\|\A)application\.(css|js)$/]
-      assets.each_logical_path(*precompile).each {|path|
+      @environment.each_logical_path(*precompile).each {|path|
         case File.extname(path)
         when '.js'
           dir = 'javascripts'
         when '.css'
           dir = 'stylesheets'
         end
-        assets[path].write_to "www/assets/#{dir}/#{path}"
+        @environment[path].write_to "www/assets/#{path}"
+        #@environment[path].write_to "www/assets/#{dir}/#{path}"
       }
 
       if File.exist? File.join(project_root,
