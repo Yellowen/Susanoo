@@ -8,7 +8,7 @@ class Susanoo::Application
   class Assets < Susanoo::Controller
     def call(env)
       # Environment is a sprockets environment instance
-      run environment
+      environment.call env
     end
 
     def build(generator, route)
