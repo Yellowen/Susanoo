@@ -13,8 +13,6 @@ module Susanoo
 
       package_name 'Susanoo'
 
-      map 'r' => :run_in
-
       # Set the project root
       def self.root=(path)
         @@root = path
@@ -30,35 +28,10 @@ module Susanoo
       include Susanoo::CLI::Commands::Generate
       include Susanoo::CLI::Commands::Build
       include Susanoo::CLI::Commands::Console
+      include Susanoo::CLI::Commands::Run
 
-      desc 'run PLATFORM', 'Run application on PLATFORM.'
-      def run_in(platform = :android)
-        # Build the project first
-        build
-
-        inside Susanoo::Project.path do
-          system "cordova run #{platform.to_s}"
-        end
-      end
 
       private
-      # Private ---------------------------
-
-      def print_generator_list
-        say 'Available generators:'
-        say '---------------------------------------------------'
-        Susanoo::Generators.constants.each do |g|
-          generator = Susanoo::Generators.const_get(g)
-
-          if generator.respond_to?(:global_generator?) && \
-            !generator.global_generator?
-            generator_name = generator.to_s.split('::').last.underscore
-            say "#{generator_name}\t\t #{generator.desc}\n"
-          end
-
-        end
-
-      end
 
       def project_root
         Susanoo::Project.path

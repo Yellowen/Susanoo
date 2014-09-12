@@ -30,6 +30,22 @@ module Susanoo::CLI
 
       private
 
+      def print_generator_list
+        say 'Available generators:'
+        say '---------------------------------------------------'
+        Susanoo::Generators.constants.each do |g|
+          generator = Susanoo::Generators.const_get(g)
+
+          if generator.respond_to?(:global_generator?) && \
+            !generator.global_generator?
+            generator_name = generator.to_s.split('::').last.underscore
+            say "#{generator_name}\t\t #{generator.desc}\n"
+          end
+
+        end
+
+      end
+
       def get_the_generator_class(generator_name)
         # Print the generators list and exit
         if generator_name.nil?

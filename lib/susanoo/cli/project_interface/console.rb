@@ -2,7 +2,7 @@ require 'susanoo/irb'
 
 module Susanoo::CLI
   module Commands
-    # Provide the `generate` & `destroy` commands for project wide usage.
+    # Provide the `console` command for project wide usage.
     module Console
       extend ::ActiveSupport::Concern
 
