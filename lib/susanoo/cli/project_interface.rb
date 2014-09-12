@@ -15,9 +15,7 @@ module Susanoo
 
       package_name 'Susanoo'
 
-      map 'g' => :generate
       map 'r' => :run_in
-      map 'd' => :destroy
       map 'b' => :build
       map 'c' => :console
 
@@ -33,22 +31,7 @@ module Susanoo
       end
 
       include Susanoo::CLI::Commands::Server
-
-      desc 'generate GENERATOR [options]', 'Run the given generator'
-      def generate(generator_name = nil, *options)
-        generator = get_the_generator_class generator_name
-        # Run the generator with given options
-        generator.start(options, behavior: :invoke,
-                        destination_root: Susanoo::Project.path)
-      end
-
-      desc 'destroy GENERATOR [options]', 'Destroy the given generator'
-      def destroy(generator_name = nil, *options)
-        generator = get_the_generator_class generator_name
-
-        generator.start(options, behavior: :revoke,
-                        destination_root: Susanoo::Project.path)
-      end
+      include Susanoo::CLI::Commands::Generate
 
 
       desc 'build [PLATFORM]', 'Build the application for given PLATFORM (default=android).'
@@ -107,26 +90,6 @@ module Susanoo
 
       private
       # Private ---------------------------
-
-      def get_the_generator_class(generator_name)
-        # Print the generators list and exit
-        if generator_name.nil?
-          print_generator_list
-          return
-        end
-
-        # Try to load and get the generator Class
-        begin
-          klass = generator_name.downcase.camelize
-          generator = Susanoo::Generators.const_get(klass)
-
-        rescue NameError
-          say_status 'Error', "Generator `#{generator_name}` not found.",
-                     :red
-          exit 1
-        end
-        generator
-      end
 
       def print_generator_list
         say 'Available generators:'
