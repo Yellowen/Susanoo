@@ -15,7 +15,7 @@ class Susanoo::Application
       [200, {'Content-Type' => 'text/html'}, [template.render(self)]]
     end
 
-    def build(generator, route)
+    def build(generator, options)
       file_pattern = File.join(project_root, 'src/views/**/*.{html,html.erb}')
       dest_path = File.join(project_root, 'www')
       src_path = File.join(project_root, 'src')

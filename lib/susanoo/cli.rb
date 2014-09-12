@@ -1,9 +1,8 @@
 require 'rubygems'
 
 require 'pathname'
-require 'susanoo/cli/global'
-require 'susanoo/cli/project'
-require 'active_support/core_ext/string/inflections'
+require 'susanoo/cli/global_interface'
+require 'susanoo/cli/project_interface'
 
 
 module Susanoo
@@ -13,7 +12,7 @@ module Susanoo
 
     def self.run
       unless execute
-        Susanoo::CLI::Global.start
+        Susanoo::CLI::GlobalInterface.start
       end
     end
 

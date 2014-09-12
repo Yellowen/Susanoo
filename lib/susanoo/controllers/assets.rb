@@ -11,10 +11,11 @@ class Susanoo::Application
       environment.call env
     end
 
-    def build(generator, route)
+    def build(generator, options)
+      platform = options[:platform]
 
       Sprockets::Helpers.configure do |config|
-        config.prefix      = 'assets'
+        config.prefix      = "/#{platform}_asset/www/assets"
         config.debug       = false
         config.environment = @environment
       end

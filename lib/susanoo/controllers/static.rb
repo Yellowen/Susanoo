@@ -20,7 +20,8 @@ class Susanoo::Application
       end
     end
 
-    def build(generator, route)
+    def build(generator, options)
+      route = options[:route]
       file = route.path_for_generation[1..-1]
       generator.copy_file file, "www/#{route.path_for_generation}"
     end

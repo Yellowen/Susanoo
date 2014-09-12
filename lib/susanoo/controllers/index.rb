@@ -10,11 +10,13 @@ class Susanoo::Application
       [200, {'Content-Type' => 'text/html'}, [template.render(self)]]
     end
 
-    def build(generator, route)
+    def build(generator, options)
+      platform = options[:platform]
+
       # Configure Sprockets::Helpers (if necessary)
       Sprockets::Helpers.configure do |config|
         config.environment = @environment
-        config.prefix      = '/assets'
+        config.prefix      = "/#{platform}_asset/www/assets"
         config.debug       = false
       end
 

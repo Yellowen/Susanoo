@@ -2,15 +2,19 @@ require 'thor'
 require 'susanoo/generators'
 require 'susanoo/irb'
 
+require_relative './project_interface/commands'
+
 module Susanoo
   module CLI
-    class Project < Thor
+    # Project wide `Thor` class which is responsible for
+    # each command that user execute inside project
+    class ProjectInterface < Thor
 
+      # Include the Thor actions
       include ::Thor::Actions
 
       package_name 'Susanoo'
 
-      map 's' => :server
       map 'g' => :generate
       map 'r' => :run_in
       map 'd' => :destroy
@@ -28,6 +32,8 @@ module Susanoo
         "#{@@root}/src"
       end
 
+      include Susanoo::CLI::Commands::Server
+
       desc 'generate GENERATOR [options]', 'Run the given generator'
       def generate(generator_name = nil, *options)
         generator = get_the_generator_class generator_name
@@ -44,38 +50,11 @@ module Susanoo
                         destination_root: Susanoo::Project.path)
       end
 
-      method_option :debug, default: true
-      method_option :built, default: false
-      desc 'server', 'Run development server.'
-      def server(port = 3000)
-        project_root = Susanoo::Project.path
 
-        if options[:built]
-          unless File.directory? File.join(project_root, 'www')
-            error "'www' directory is not present. Build you app first."
-            return
-          end
-
-          app = Rack::Directory.new File.join(project_root, 'www')
-
-        else
-          require File.join(project_root, 'config/routes')
-          # Set global debug flag
-          Susanoo::Project.debug = options[:debug]
-
-          app = ROUTER
-        end
-
-        Rack::Server.start(app: app, server: :thin, Port: port,
-                           debug: options[:debug])
-      end
-
-      desc 'build', 'Build the application.'
-      def build
-        project_root = Susanoo::Project.path
+      desc 'build [PLATFORM]', 'Build the application for given PLATFORM (default=android).'
+      def build(platform = 'android')
 
         require File.join(project_root, 'config/routes')
-
         router = ROUTER.instance_variable_get('@router')
 
         build_dir = File.join(project_root, 'www')
@@ -94,7 +73,13 @@ module Susanoo
           controller = route.dest
           if controller.respond_to? :build
             say_status 'build', "Controller: #{controller.__getobj__.class}"
-            controller.build(self, route.dup)
+
+            options = {
+              route: route.dup,
+              platform: platform
+            }
+
+            controller.build(self, options)
           else
             say_status 'warning', "#{controller.__getobj__.class.to_s}' does not have 'build' method.",
                        :yellow
@@ -157,6 +142,10 @@ module Susanoo
 
         end
 
+      end
+
+      def project_root
+        Susanoo::Project.path
       end
     end
   end

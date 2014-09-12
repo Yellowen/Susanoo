@@ -6,6 +6,8 @@ require 'rack/rewrite'
 require 'tilt'
 require 'colorize'
 require 'lotus/router'
+require 'active_support'
+#require 'active_support/core_ext/string/inflections'
 
 module Susanoo
 end

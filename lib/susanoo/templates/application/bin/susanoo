@@ -4,5 +4,5 @@ end
 
 require 'susanoo'
 
-Susanoo::CLI::Project.root = File.expand_path("../../", __FILE__)
-Susanoo::CLI::Project.start
+Susanoo::CLI::ProjectInterface.root = File.expand_path("../../", __FILE__)
+Susanoo::CLI::ProjectInterface.start
