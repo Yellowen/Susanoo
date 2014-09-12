@@ -1,3 +1,5 @@
+require 'susanoo/generators'
+
 module Susanoo::CLI
   module Commands
     # Provide the `generate` & `destroy` commands for project wide usage.

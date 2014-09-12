@@ -1,6 +1,4 @@
 require 'thor'
-require 'susanoo/generators'
-require 'susanoo/irb'
 
 require_relative './project_interface/commands'
 
@@ -16,8 +14,6 @@ module Susanoo
       package_name 'Susanoo'
 
       map 'r' => :run_in
-      map 'b' => :build
-      map 'c' => :console
 
       # Set the project root
       def self.root=(path)
@@ -33,6 +29,7 @@ module Susanoo
       include Susanoo::CLI::Commands::Server
       include Susanoo::CLI::Commands::Generate
       include Susanoo::CLI::Commands::Build
+      include Susanoo::CLI::Commands::Console
 
       desc 'run PLATFORM', 'Run application on PLATFORM.'
       def run_in(platform = :android)
@@ -42,14 +39,6 @@ module Susanoo
         inside Susanoo::Project.path do
           system "cordova run #{platform.to_s}"
         end
-      end
-
-      desc 'console', 'Run pry in environment of `Susanoo`. '
-      def console
-        project_root = Susanoo::Project.path
-        require File.join(project_root, 'config/routes')
-
-        IRB.start_session(binding)
       end
 
       private

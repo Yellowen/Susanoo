@@ -5,6 +5,9 @@ module Susanoo::CLI
       extend ::ActiveSupport::Concern
 
       included do
+
+        map 'b' => :build
+
         desc 'build [PLATFORM]', 'Build the application for given PLATFORM (default=android).'
         def build(platform = 'android')
 
