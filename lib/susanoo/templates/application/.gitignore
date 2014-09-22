@@ -50,4 +50,6 @@ IOS/www/
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
-www/
+/www/
+www/assets/
+www/views/
