@@ -9,6 +9,8 @@ module Susanoo::CLI
         map 'b' => :build
 
         desc 'build [PLATFORM]', 'Build the application for given PLATFORM (default=android).'
+        method_option :complete, default: false
+        method_option :release, default: false
         def build(platform = 'android')
 
           require File.join(project_root, 'config/routes')
@@ -43,6 +45,13 @@ module Susanoo::CLI
               :yellow
             end
           end
+
+          if options[:complete]
+            debug_flag = '--debug'
+            debug_flag = '--release' if options[:release]
+            system "cordova build #{platform.to_s} #{debug_flag}"
+          end
+
         end
       end
     end

@@ -9,11 +9,16 @@ module Susanoo::CLI
         map 'r' => :run_in
 
         desc 'run PLATFORM', 'Run application on PLATFORM.'
+        method_option :release, default: false
         def run_in(platform = :android)
           # Build the project first
           build
+
           inside Susanoo::Project.path do
-            system "cordova run #{platform.to_s}"
+            debug_flag = '--debug'
+            debug_flag = '--release' if options[:release]
+
+            system "cordova run #{platform.to_s} #{debug_flag}"
           end
         end
 
