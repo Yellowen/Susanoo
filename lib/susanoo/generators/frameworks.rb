@@ -8,10 +8,10 @@ module Susanoo
         :name => 'temp_name',
         :dependencies => {
           # TODO: Set this to new version of angular
-          angular: '1.2.9',
+          angular: '1.2.26',
           'angular-touch' => '*',
           'angular-gestures' => '*',
-          'angular-route' => '*',
+          'angular-ui-router' => '*',
           'angular-animate' => '*',
           'angular-sanitize' => '*',
           'angular-resource' => '*',
@@ -25,7 +25,7 @@ module Susanoo
                     'lodash/dist/lodash',
                     'angular/angular',
                     'angular-animate/angular-animate',
-                    'angular-route/angular-route',
+                    'angular-ui-router/release/angular-ui-router',
                     'angular-sanitize/angular-sanitize',
                     'angular-touch/angular-touch',
                     'angular-gestures/gestures',
