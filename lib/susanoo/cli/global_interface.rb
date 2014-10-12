@@ -4,7 +4,7 @@ require 'susanoo/generators'
 
 module Susanoo
   module CLI
-    class Global < Thor
+    class GlobalInterface < Thor
 
       desc 'new PROJECT', 'Create a new Susanoo/Cordova project'
       def new(name)
