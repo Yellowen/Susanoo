@@ -2,13 +2,14 @@
 var <%= module_name %> = angular.module("<%= module_name.camelize %>", ["gettext"<% dependencies.each do |dep| %>, "<%= dep.camelize %>"<% end %>]);
 
 // configuration section ---------------------------
-<%= module_name %>.config(["$routeProvider", function($routeProvider){
+<%= module_name %>.config(["$stateProvider", function($stateProvider){
 
     // Configuring application index route.
     // Add any route you need here.
-    $routeProvider.
-        when("/<%= directory_name %><%= module_name %>/", {
-            templateUrl: template("<%= directory_name %><%= module_name %>/index"),
+    $stateProvider.
+        state("<%= module_name %>", {
+            url: "/<%= directory_name %><%= module_name %>/",
+            templateUrl: template_url("<%= directory_name %><%= module_name %>/index"),
             controller: "<%= module_name.camelize %>Controller"
         });
 
