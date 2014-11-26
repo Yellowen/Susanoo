@@ -27,7 +27,13 @@ class Susanoo::Application
 
       @environment.append_path File.join(project_root,
                                    'src/assets/fonts')
+      @environment.append_path File.join(project_root,
+                                   'src/assets/sounds')
 
+      @environment.append_path File.join(project_root,
+                                   'src/assets/audios')
+      @environment.append_path File.join(project_root,
+                                   'src/assets/videos')
 
       func = lambda do |path, filename|
         filename !~ %r~assets~  && !%w[.js .css].include?(File.extname(path))
@@ -56,6 +62,25 @@ class Susanoo::Application
         generator.say_status 'copy', 'src/assets/fonts'
         `cp #{project_root}/src/assets/fonts #{project_root}/www/assets/fonts -r`
       end
+
+      if File.exist? File.join(project_root,
+                               'src/assets/sounds')
+        generator.say_status 'copy', 'src/assets/sounds'
+        `cp #{project_root}/src/assets/sounds #{project_root}/www/assets/sounds -r`
+      end
+
+      if File.exist? File.join(project_root,
+                               'src/assets/audios')
+        generator.say_status 'copy', 'src/assets/audios'
+        `cp #{project_root}/src/assets/audios #{project_root}/www/assets/audios -r`
+      end
+
+      if File.exist? File.join(project_root,
+                               'src/assets/videos')
+        generator.say_status 'copy', 'src/assets/videos'
+        `cp #{project_root}/src/assets/videos #{project_root}/www/assets/videos -r`
+      end
+
     end
   end
 end

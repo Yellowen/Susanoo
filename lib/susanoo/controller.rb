@@ -23,6 +23,9 @@ module Susanoo
       @environment.append_path(File.join(@project_root, 'src', 'assets', 'stylesheets'))
       @environment.append_path(File.join(@project_root, 'src', 'assets', 'images'))
       @environment.append_path(File.join(@project_root, 'src', 'assets', 'fonts'))
+      @environment.append_path File.join(@project_root, 'src/assets/sounds')
+      @environment.append_path File.join(@project_root, 'src/assets/audios')
+      @environment.append_path File.join(@project_root, 'src/assets/videos')
 
       Susanoo::StaticGenerator.register self.class
     end
