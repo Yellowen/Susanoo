@@ -16,7 +16,8 @@ class Susanoo::Application
     end
 
     def build(generator, options)
-      file_pattern = File.join(project_root, 'src/views/**/*.{html,html.erb}')
+      extensions = ['erb', 'slim', 'haml', 'md', 'org', 'liquid', 'rdoc']
+      file_pattern = File.join(project_root, "src/views/**/*.{html,#{extensions.join(',')}}")
       dest_path = File.join(project_root, 'www')
       src_path = File.join(project_root, 'src')
 
@@ -29,9 +30,11 @@ class Susanoo::Application
         # Create missing directories in destination path
         FileUtils.mkpath dest_path
 
-        # Remove erb extension name from destination path
-        dest_file.gsub!('.erb', '') if File.extname(dest_file) == 'erb'
-
+        if extensions.include? File.extname(dest_file)[1..-1]
+          # Remove erb extension name from destination path
+          dest_file.gsub!(File.extname(dest_file), '')
+          dest_file = "#{dest_file}.html" if File.extname(dest_file).empty?
+        end
         # Create the destination file
         generator.create_file dest_file, template.render(self)
       end
