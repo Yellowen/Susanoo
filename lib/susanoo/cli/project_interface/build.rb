@@ -12,6 +12,11 @@ module Susanoo::CLI
         method_option :complete, default: false
         method_option :release, default: false
         def build(platform = 'android')
+          debug_flag = '--debug'
+          debug_flag = '--release' if options[:release]
+
+          Susanoo::Project.debug = false
+          Susanoo::Project.debug = true if debug_flag == '--debug'
 
           require File.join(project_root, 'config/routes')
           router = ROUTER.instance_variable_get('@router')
@@ -47,8 +52,6 @@ module Susanoo::CLI
           end
 
           if options[:complete]
-            debug_flag = '--debug'
-            debug_flag = '--release' if options[:release]
             system "cordova build #{platform.to_s} #{debug_flag}"
           end
 

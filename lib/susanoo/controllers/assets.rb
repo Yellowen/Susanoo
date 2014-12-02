@@ -35,6 +35,12 @@ class Susanoo::Application
       @environment.append_path File.join(project_root,
                                    'src/assets/videos')
 
+      unless Susanoo::Project.debug
+        puts ">>>>>>>>>>>>>" * 100
+        @environment.js_compressor  = :uglify
+        @environment.css_compressor = :scss
+      end
+
       func = lambda do |path, filename|
         filename !~ %r~assets~  && !%w[.js .css].include?(File.extname(path))
       end

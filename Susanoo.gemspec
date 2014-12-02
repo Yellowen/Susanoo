@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'lotus-router'
   spec.add_dependency 'rack'
   spec.add_dependency 'rack-rewrite'
-  spec.add_dependency 'uglifier', '~>2.1.1'
+  spec.add_dependency 'uglifier'
   spec.add_dependency 'yui-compressor', '~>0.9.6'
   spec.add_dependency 'sprockets', '~>2.11.0'
   spec.add_dependency 'sprockets-helpers'
