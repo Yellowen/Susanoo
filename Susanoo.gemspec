@@ -30,9 +30,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rack-rewrite'
   spec.add_dependency 'uglifier'
   spec.add_dependency 'yui-compressor', '~>0.9.6'
-  spec.add_dependency 'sprockets', '~>2.11.0'
+  spec.add_dependency 'sprockets', '~>2.11.3'
   spec.add_dependency 'sprockets-helpers'
-  spec.add_dependency 'sass', '3.2.15'
+  spec.add_dependency 'sass', '3.2.5'
   spec.add_dependency 'tilt'
   spec.add_dependency 'activesupport'
 
