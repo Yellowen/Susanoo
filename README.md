@@ -1,7 +1,7 @@
 # Susanoo
 
 Susanoo is meta framework to create and develop hybrid mobile applications. Using Susanoo you will work in an environment
-which you already are familiar with specially if you are a ruby developer. Susanoo use Apache Cordova
+which you already are familiar with especially if you are a ruby developer. Susanoo use Apache Cordova
 
 ## Installation
 
